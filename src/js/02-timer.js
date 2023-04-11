@@ -31,8 +31,8 @@ const options = {
     } else {
       startBtn.setAttribute('disabled', '');
       time = null;
-      // alert('Please choose a date in the future');
-      Notify.failure('Please choose a date in the future');
+      alert('Please choose a date in the future');
+      //Notify.failure('Please choose a date in the future');
     }
   },
 };
