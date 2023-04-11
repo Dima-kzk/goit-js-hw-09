@@ -30,9 +30,8 @@ const options = {
       selectDate = selectedDates[0].getTime();
     } else {
       startBtn.setAttribute('disabled', '');
-      time = null;
-      alert('Please choose a date in the future');
-      //Notify.failure('Please choose a date in the future');
+      //alert('Please choose a date in the future');
+      Notify.failure('Please choose a date in the future');
     }
   },
 };
