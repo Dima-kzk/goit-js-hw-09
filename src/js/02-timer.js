@@ -59,14 +59,31 @@ flatpickr(datetimePicker, options);
 
 startBtn.addEventListener('click', () => {
   if (timerId !== null) return;
+  function isStopCountdown(days, hours, minutes, seconds) {
+    if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+      datetimePicker.removeAttribute('disabled');
+      startBtn.setAttribute('disabled', '');
+      clearInterval(timerId);
+      timerId = null;
+      valueSpan[0].textContent = '00';
+      valueSpan[1].textContent = '00';
+      valueSpan[2].textContent = '00';
+      valueSpan[3].textContent = '00';
+      return true;
+    }
+    return false;
+  }
   //     0      1       2         3
   let { days, hours, minutes, seconds } = convertMs(selectDate - Date.now());
+  if (isStopCountdown(days, hours, minutes, seconds)) return;
   valueSpan[0].textContent = days > 9 ? days : '0' + days;
   valueSpan[1].textContent = hours > 9 ? hours : '0' + hours;
   valueSpan[2].textContent = minutes > 9 ? minutes : '0' + minutes;
   valueSpan[3].textContent = seconds > 9 ? seconds : '0' + seconds;
+
   timerId = setInterval(() => {
     let { days, hours, minutes, seconds } = convertMs(selectDate - Date.now());
+    if (isStopCountdown(days, hours, minutes, seconds)) return;
     valueSpan[0].textContent = days > 9 ? days : '0' + days;
     valueSpan[1].textContent = hours > 9 ? hours : '0' + hours;
     valueSpan[2].textContent = minutes > 9 ? minutes : '0' + minutes;
